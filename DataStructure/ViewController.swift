@@ -7,11 +7,83 @@
 
 import UIKit
 
+class ClassA {
+    var objectB: ClassB?
+
+    deinit {
+        print("ClassA deinitialized")
+    }
+}
+
+class ClassB {
+    var objectA: ClassA?
+
+    deinit {
+        print("ClassB deinitialized")
+    }
+}
+
+class Person {
+    let name: String
+    var pet: Pet?
+
+    init(name: String) {
+        self.name = name
+        print("\(name) is initialized")
+    }
+
+    deinit {
+        print("\(name) is deinitialized")
+    }
+}
+
+class Pet {
+    let name: String
+    unowned var owner: Person?
+
+    init(name: String) {
+        self.name = name
+        print("\(name) is initialized")
+    }
+
+    deinit {
+        print("\(name) is deinitialized")
+    }
+}
+
+struct BankAccount {
+    var name: String
+    var isMillionnaire = false
+    var balance: Int {
+        didSet {
+            if balance > 1_000_000 {
+                isMillionnaire = true
+            } else {
+                isMillionnaire = false
+            }
+        }
+    }
+}
+
+struct App {
+    var name: String
+    var isOnSale: Bool {
+        didSet {
+            if isOnSale {
+                print("Go and download my app!")
+            } else {
+                print("Maybe download it later.")
+            }
+        }
+    }
+}
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
         let testString1 = "The quick brown fox jumps over the lazy dog"
         print(panagram(testString1))
       
@@ -20,14 +92,13 @@ class ViewController: UIViewController {
         // Example usage:
         let string1 = "LISTEN"
         let string2 = "SILENT"
-
-
+        
         if areAnagramsBestSolution(string1, string2) {
             print("'\(string1)' and '\(string2)' are anagrams.")
         } else {
             print("'\(string1)' and '\(string2)' are not anagrams.")
         }
-        /*
+        
         // Example usage:
         let string1 = "listen"
         let string2 = "silent"
@@ -51,12 +122,12 @@ class ViewController: UIViewController {
 
         john = nil
         dog = nil
-      */
+      
 
        // var rangeOfThreeItems = FixedLengthRange(firstValue: <#T##Int#>, length: <#T##Int#>)
         // the range represents integer values 0, 1, and 2
 
-        /*
+        
         let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)
         print("the volume of fourByFiveByTwo is \(fourByFiveByTwo.volume)")
 
@@ -77,16 +148,10 @@ class ViewController: UIViewController {
         let resveredInt = reverseIntArray(with: number)
         print(resveredInt)
 
-
         let statement = ""
         let reverseString = newReverseString(text: statement)
         print(reverseString)
          */
-
-//        var characters: [Character] = Array("ihtapirT hsepooR")
-//        reverseString(&characters)
-//        let reversedString = String(characters)
-//        print(reversedString)
     }
 
     func makeIncrementer() -> ((Int) -> Int) {
@@ -196,15 +261,16 @@ class ViewController: UIViewController {
 
         var num = x
         var result = 0
-
+        
         while num != 0 {
-            // Step 1:
-            let digit = num % 10
-            // Step 2:
+            //digit
+            var digit = num % 10
+            // store result
             result = result * 10 + digit
-            // Step 3:
+            //
             num /= 10
         }
+        
         return result
     }
 
@@ -303,142 +369,64 @@ class ViewController: UIViewController {
         }
         return results
     }
-}
-
-class ClassA {
-    var objectB: ClassB?
-
-    deinit {
-        print("ClassA deinitialized")
-    }
-}
-
-class ClassB {
-    var objectA: ClassA?
-
-    deinit {
-        print("ClassB deinitialized")
-    }
-}
-
-class Person {
-    let name: String
-    var pet: Pet?
-
-    init(name: String) {
-        self.name = name
-        print("\(name) is initialized")
-    }
-
-    deinit {
-        print("\(name) is deinitialized")
-    }
-}
-
-class Pet {
-    let name: String
-    unowned var owner: Person?
-
-    init(name: String) {
-        self.name = name
-        print("\(name) is initialized")
-    }
-
-    deinit {
-        print("\(name) is deinitialized")
-    }
-}
-
-struct BankAccount {
-    var name: String
-    var isMillionnaire = false
-    var balance: Int {
-        didSet {
-            if balance > 1_000_000 {
-                isMillionnaire = true
-            } else {
-                isMillionnaire = false
-            }
-        }
-    }
-}
-
-struct App {
-    var name: String
-    var isOnSale: Bool {
-        didSet {
-            if isOnSale {
-                print("Go and download my app!")
-            } else {
-                print("Maybe download it later.")
-            }
-        }
-    }
-}
-
-struct classRoopesh {
-    let name: String
-    let age: Int
-}
-
-func removeDuplicateItems<T: Equatable>(from array: [T]) -> [T] {
     
-    var results: [T] = []
-    for el in array {
+    func removeDuplicateItems<T: Equatable>(from array: [T]) -> [T] {
         
-        if !results.contains(el) {
-            results.append(el)
+        var results: [T] = []
+        for el in array {
+            
+            if !results.contains(el) {
+                results.append(el)
+            }
         }
+        return results
     }
-    return results
-}
 
-
-func reverseWord(input: String) -> String {
-    var result: String = ""
-    for el in input {
-        result = String(el) + result
-    }
-    return result
-}
-
-
-func newAnagram(str1: String, str2: String) -> Bool {
-    
-    guard str1.count == str2.count else { return false }
-    // Step 1
-    var charArray1 = Array(repeating: 0, count: str1.count)
-    var charArray2 = Array(repeating: 0, count: str2.count)
-    
-    // Step 2
-    for char in str1.utf8 {
-        charArray1[Int(char)] += 1
-    }
-    
-    for char in str2.utf8 {
-        charArray2[Int(char)] += 1
-    }
-    
-    // Step 3
-    for i in 0...256 {
-        if charArray1[i] != charArray2[i] {
-            return false
+    func reverseWord(input: String) -> String {
+        var result: String = ""
+        for el in input {
+            result = String(el) + result
         }
+        return result
     }
-    return false
-}
 
-
-func panagram(_ str: String) -> Bool {
-    var charSet: Set<Character> = Set()
-
-    for char in str.lowercased() {
-        if char.isLetter {
-            charSet.insert(char)
+    func newAnagram(str1: String, str2: String) -> Bool {
+        
+        guard str1.count == str2.count else { return false }
+        // Step 1
+        var charArray1 = Array(repeating: 0, count: str1.count)
+        var charArray2 = Array(repeating: 0, count: str2.count)
+        
+        // Step 2
+        for char in str1.utf8 {
+            charArray1[Int(char)] += 1
         }
+        
+        for char in str2.utf8 {
+            charArray2[Int(char)] += 1
+        }
+        
+        // Step 3
+        for i in 0...256 {
+            if charArray1[i] != charArray2[i] {
+                return false
+            }
+        }
+        return false
     }
 
-    return charSet.count == 26
+    func panagram(_ str: String) -> Bool {
+        var charSet: Set<Character> = Set()
+
+        for char in str.lowercased() {
+            if char.isLetter {
+                charSet.insert(char)
+            }
+        }
+
+        return charSet.count == 26
+    }
 }
+
 
 
