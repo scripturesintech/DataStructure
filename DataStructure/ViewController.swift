@@ -555,7 +555,30 @@ func maxSubArray(_ nums: [Int]) -> Int {
 
     return mergedArray
 }
+    
+func areAnagrams(_ s1: String, _ s2: String) -> Bool {
+    // Early exit if strings have different lengths
+    guard s1.count == s2.count else {
+        return false
+    }
 
+    // Create frequency dictionaries for both strings
+    var frequencyDict1 = [Character: Int]()
+    var frequencyDict2 = [Character: Int]()
+
+    // Populate the frequency dictionary for the first string
+    for char in s1 {
+        frequencyDict1[char, default: 0] += 1
+    }
+
+    // Populate the frequency dictionary for the second string
+    for char in s2 {
+        frequencyDict2[char, default: 0] += 1
+    }
+
+    // Compare the two frequency dictionaries
+    return frequencyDict1 == frequencyDict2
+}
 
 }
 
