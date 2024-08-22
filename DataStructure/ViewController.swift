@@ -84,6 +84,18 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         /*
+        // Example usage:
+        let inputString = "hello world"
+        let occurrences = characterOccurrences(in: inputString)
+
+        for (char, count) in occurrences {
+            print("'\(char)' occurs \(count) time(s)")
+        }
+        
+        let s = "yoda is a jedi"
+        let reversed = reverseWords(in: s)
+        print(reversed) // Output: "jedi a is yoda"
+        
         let testString1 = "The quick brown fox jumps over the lazy dog"
         print(panagram(testString1))
       
@@ -426,6 +438,94 @@ class ViewController: UIViewController {
 
         return charSet.count == 26
     }
+
+    func reverseWords(in s: String) -> String {
+    // Split the string into words
+    let words = s.split(separator: " ")
+    var reversedWords: [String] = []
+    
+    // Iterate through the array from the last element to the first using a decrementing index
+    var i = words.count - 1
+    while i >= 0 {
+        reversedWords.append(String(words[i]))
+        i -= 1
+    }
+    
+    // Join the reversed words back into a single string
+    let reversedString = reversedWords.joined(separator: " ")
+    
+    return reversedString
+}
+
+func characterOccurrences(in string: String) -> [Character: Int] {
+    var occurrences: [Character: Int] = [:]
+    
+    for char in string {
+        occurrences[char, default: 0] += 1
+    }
+    
+    return occurrences
+}
+
+func gcd(_ a: Int, _ b: Int) -> Int {
+    var a = a
+    var b = b
+    
+    while b != 0 {
+        let remainder = a % b
+        a = b
+        b = remainder
+    }
+    
+    return a
+}
+
+func gcdOfArray(_ numbers: [Int]) -> Int {
+    guard let first = numbers.first else { return 0 }
+    return numbers.dropFirst().reduce(first) { gcd($0, $1) }
+}
+
+let numbers = [56, 98, 42]
+let result = gcdOfArray(numbers)
+print(result) // Output: 14
+
+ func printDivisors(of n: Int) {
+    var divisors = [Int]()
+    
+    for i in 1...Int(Double(n).squareRoot()) {
+        if n % i == 0 {
+          divisors.append(i)
+              if i != n / i {
+                divisors.append(n / i)
+                }
+            }
+        }
+    
+    // Sort and print the divisors
+     divisors.sort()
+     print(divisors)
+}
+
+func maxSubArray(_ nums: [Int]) -> Int {
+    // Initialize the variables
+    var currentMax = nums[0]
+    var globalMax = nums[0]
+
+    // Iterate through the array starting from the second element
+    for i in 1..<nums.count {
+        // Decide whether to add the current element to the existing subarray or start a new subarray
+        currentMax = max(nums[i], currentMax + nums[i])
+        
+        // Update the global maximum if the current subarray sum is greater
+        if currentMax > globalMax {
+            globalMax = currentMax
+        }
+    }
+
+    return globalMax
+}
+
+
 }
 
 
