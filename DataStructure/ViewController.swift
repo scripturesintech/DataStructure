@@ -579,6 +579,14 @@ func areAnagrams(_ s1: String, _ s2: String) -> Bool {
     // Compare the two frequency dictionaries
     return frequencyDict1 == frequencyDict2
 }
+    
+ func binaryRepresentation(of number: Int) -> String {
+    return String(number, radix: 2)
+}
+
+func integerFromBinary(_ binaryString: String) -> Int? {
+    return Int(binaryString, radix: 2)
+}
 
 }
 
