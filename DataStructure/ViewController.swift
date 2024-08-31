@@ -587,6 +587,43 @@ func areAnagrams(_ s1: String, _ s2: String) -> Bool {
 func integerFromBinary(_ binaryString: String) -> Int? {
     return Int(binaryString, radix: 2)
 }
+    
+ func removeDuplicates(_ nums: inout [Int]) -> Int {
+    guard nums.count > 1 else { return nums.count }
+    var i = 0
+    for j in 1..<nums.count {
+        if nums[i] != nums[j] {
+            i += 1
+            nums[i] = nums[j]
+
+        }
+    }
+    return i + 1
+
+  //   var nums = [1, 1, 2, 2, 3]
+//let length = removeDuplicates(&nums)
+//print(length)  // Output: 3
+//print(nums.prefix(length))  // Output: [1, 2, 3]
+    }    
+
+    func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+    var left = 0
+    var right = nums.count - 1
+    
+    while left < right {
+        let sum = nums[left] + nums[right]
+        
+        if sum == target {
+            return [left + 1, right + 1]  // Return 1-indexed positions
+        } else if sum < target {
+            left += 1  // Move left pointer to the right
+        } else {
+            right -= 1  // Move right pointer to the left
+        }
+    }
+    
+    return []  // If no solution found, though the problem guarantees one
+}
 
 }
 
