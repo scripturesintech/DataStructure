@@ -286,78 +286,33 @@ class ViewController: UIViewController {
         return result
     }
 
-    func areAnagrams(_ str1: String, _ str2: String) -> Bool {
-        // Check if the lengths of the strings are the same
-        guard str1.count == str2.count else {
-            return false
-        }
-
-        // Create arrays to store the counts of each character in the strings
-        var charCount1 = Array(repeating: 0, count: 256) // Assuming ASCII characters
-        var charCount2 = Array(repeating: 0, count: 256)
-
-        // Iterate through the characters in the first string and increment the count for each character
-        for char in str1.utf8 {
-            charCount1[Int(char)] += 1
-        }
-
-        // Iterate through the characters in the second string and decrement the count for each character
-        for char in str2.utf8 {
-            charCount2[Int(char)] += 1
-        }
-
-        // Compare the counts of each character in both arrays
-        for i in 0..<256 {
-            if charCount1[i] != charCount2[i] {
-                return false
-            }
-        }
-
-        // If all counts match, the strings are anagrams
-        return true
+ func areAnagrams(_ str1: String, _ str2: String) -> Bool {
+    // Early exit if lengths differ
+    guard str1.count == str2.count else {
+        return false
     }
 
-    func areAnagramsBestSolution(_ str1: String, _ str2: String) -> Bool {
-        // Check if the lengths of the strings are the same
-        guard str1.count == str2.count else {
-            return false
-        }
+    // Initialize an array to count character occurrences (256 for all ASCII characters)
+    var charCount = [Int](repeating: 0, count: 256)
 
-        // Create an array to store the counts of each character
-       // var charCount = Array(repeating: 0, count: 256) // Assuming ASCII characters
-
-        var charCount = [Int]()
-
-        // Initialize charCount array with default values
-        for _ in 0..<256 {
-            charCount.append(0)
-        }
-
-        // Increment the count for each character in the first string
-//        for char in str1.utf8 {
-//            charCount[Int(char)] += 1
-//        }
-//
-//        // Decrement the count for each character in the second string
-//        for char in str2.utf8 {
-//            charCount[Int(char)] -= 1
-//        }
-
-        for (char1, char2) in zip(str1, str2) {
-            charCount[Int(char1.asciiValue!)] += 1
-            charCount[Int(char2.asciiValue!)] -= 1
-        }
-
-        // Check if all counts are zero
-        for count in charCount {
-            if count != 0 {
-                return false
-            }
-        }
-
-        // If all counts are zero, the strings are anagrams
-        return true
+    // Helper function to get ASCII index for character
+    func index(for char: Character) -> Int {
+        return Int(char.asciiValue ?? 0)
     }
+
+    // Count characters from the first string
+    for char in str1 {
+        charCount[index(for: char)] += 1
+    }
+
+    // Subtract counts for characters in the second string
+    for char in str2 {
+        charCount[index(for: char)] -= 1
+    }
+
+    // Check if all counts are zero
+    return charCount.allSatisfy { $0 == 0 }
+}
 
     func reverseWordInSentence(with input: String) -> String {
 
