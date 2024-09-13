@@ -357,31 +357,6 @@ class ViewController: UIViewController {
         return result
     }
 
-    func newAnagram(str1: String, str2: String) -> Bool {
-        
-        guard str1.count == str2.count else { return false }
-        // Step 1
-        var charArray1 = Array(repeating: 0, count: str1.count)
-        var charArray2 = Array(repeating: 0, count: str2.count)
-        
-        // Step 2
-        for char in str1.utf8 {
-            charArray1[Int(char)] += 1
-        }
-        
-        for char in str2.utf8 {
-            charArray2[Int(char)] += 1
-        }
-        
-        // Step 3
-        for i in 0...256 {
-            if charArray1[i] != charArray2[i] {
-                return false
-            }
-        }
-        return false
-    }
-
     func panagram(_ str: String) -> Bool {
         var charSet: Set<Character> = Set()
 
@@ -575,7 +550,32 @@ func integerFromBinary(_ binaryString: String) -> Int? {
     
     return []  // If no solution found, though the problem guarantees one
 }
+func compressString(_ string: String) -> String {
+    // Edge case: if the string is empty, return an empty string
+    guard !string.isEmpty else { return "" }
 
+    var compressedString = ""
+    var currentChar = string.first!  // Start with the first character
+    var count = 0
+    
+    // Iterate through the string
+    for char in string {
+        if char == currentChar {
+            // If the current character is the same as the previous one, increment the count
+            count += 1
+        } else {
+            // Append the previous character and its count to the result
+            compressedString += "\(currentChar)\(count)"
+            currentChar = char  // Update to the new character
+            count = 1  // Reset the count
+        }
+    }
+    
+    // Don't forget to append the last character and its count
+    compressedString += "\(currentChar)\(count)"
+    
+    return compressedString
+}
 }
 
 
