@@ -516,23 +516,19 @@ func areAnagrams(_ s1: String, _ s2: String) -> Bool {
     guard s1.count == s2.count else {
         return false
     }
-
     // Create frequency dictionaries for both strings
-    var frequencyDict1 = [Character: Int]()
-    var frequencyDict2 = [Character: Int]()
-
+    var frequencyDict = [Character: Int]()
+    
     // Populate the frequency dictionary for the first string
     for char in s1 {
-        frequencyDict1[char, default: 0] += 1
+        frequencyDict[char, default: 0] += 1
     }
 
     // Populate the frequency dictionary for the second string
     for char in s2 {
-        frequencyDict2[char, default: 0] += 1
+        frequencyDict[char, default: 0] -= 1
     }
-
-    // Compare the two frequency dictionaries
-    return frequencyDict1 == frequencyDict2
+  return frequencyDict.values.allSatisfy { $0 == 0 }
 }
     
  func binaryRepresentation(of number: Int) -> String {
