@@ -576,6 +576,25 @@ func compressString(_ string: String) -> String {
     
     return compressedString
 }
+    func reverseString(_ str: String) -> String {
+    var start: Int = 0
+    var end: Int = str.count - 1
+    var inputArray = Array(str)  // Convert the string into an array of characters
+    var result = ""
+
+    while start < end {
+        let temp = inputArray[start]
+        inputArray[start] = inputArray[end]
+        inputArray[end] = temp
+        
+        start += 1
+        end -= 1
+    }
+
+    result = String(inputArray)  // Convert the character array back to a string
+    
+    return result
+}
 }
 
 
