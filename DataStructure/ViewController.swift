@@ -595,6 +595,25 @@ func compressString(_ string: String) -> String {
     
     return result
 }
+    func fibonacci(_ n: Int) -> Int {
+    if n <= 1 { return n }
+    
+    var dp = Array(repeating: 0, count: n + 1)
+    dp[0] = 0
+    dp[1] = 1
+    
+    for i in 2...n {
+        dp[i] = dp[i - 1] + dp[i - 2]
+    }
+    
+    return dp[n]
+   // Example usage:
+   // let n = 10
+    // print("Fibonacci number at position \(n) is \(fibonacci(n))")
+}
+
+
+
 }
 
 
