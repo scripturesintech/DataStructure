@@ -135,10 +135,8 @@ class ViewController: UIViewController {
         john = nil
         dog = nil
       
-
        // var rangeOfThreeItems = FixedLengthRange(firstValue: <#T##Int#>, length: <#T##Int#>)
-        // the range represents integer values 0, 1, and 2
-
+      // the range represents integer values 0, 1, and 2
         
         let fourByFiveByTwo = Cuboid(width: 4.0, height: 5.0, depth: 2.0)
         print("the volume of fourByFiveByTwo is \(fourByFiveByTwo.volume)")
@@ -532,13 +530,25 @@ func integerFromBinary(_ binaryString: String) -> Int? {
 //print(nums.prefix(length))  // Output: [1, 2, 3]
     }    
 
+    func removeDuplicates<T: Hashable>(from array: [T]) -> [T] {
+    var uniqueArray: [T] = []
+    var seenElements: [T: Bool] = [:]  // Dictionary to track seen elements
+    
+    for element in array {
+        if seenElements[element] == nil {  // If element hasn't been seen yet
+            uniqueArray.append(element)    // Add it to the unique array
+            seenElements[element] = true   // Mark it as seen
+        }
+    }
+    
+    return uniqueArray
+}
     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
     var left = 0
     var right = nums.count - 1
     
     while left < right {
         let sum = nums[left] + nums[right]
-        
         if sum == target {
             return [left + 1, right + 1]  // Return 1-indexed positions
         } else if sum < target {
@@ -595,7 +605,8 @@ func compressString(_ string: String) -> String {
     
     return result
 }
-    func fibonacci(_ n: Int) -> Int {
+
+func fibonacci(_ n: Int) -> Int {
     if n <= 1 { return n }
     
     var dp = Array(repeating: 0, count: n + 1)
@@ -611,9 +622,6 @@ func compressString(_ string: String) -> String {
    // let n = 10
     // print("Fibonacci number at position \(n) is \(fibonacci(n))")
 }
-
-
-
 }
 
 
