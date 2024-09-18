@@ -384,6 +384,27 @@ class ViewController: UIViewController {
     
     return reversedString
 }
+    func reverseWordInSentence(with input: String) -> String {
+    var reversedString = ""
+    var currentWord = ""
+    
+    for character in input {
+        if character == " " {
+            // Prepend the word to the reversed string
+            reversedString = currentWord + " " + reversedString
+            // Reset currentWord for the next word
+            currentWord = ""
+        } else {
+            // Build the current word
+            currentWord += String(character)
+        }
+    }
+    
+    // Add the last word to the reversed string (since there might not be a space after it)
+    reversedString = currentWord + (reversedString.isEmpty ? "" : " ") + reversedString
+    
+    return reversedString
+}
 
 func characterOccurrences(in string: String) -> [Character: Int] {
     var occurrences: [Character: Int] = [:]
@@ -527,6 +548,7 @@ func integerFromBinary(_ binaryString: String) -> Int? {
   //   var nums = [1, 1, 2, 2, 3]
 //let length = removeDuplicates(&nums)
 //print(length)  // Output: 3
+// let uniqueArray = Array(nums[0..<length])
 //print(nums.prefix(length))  // Output: [1, 2, 3]
     }    
 
