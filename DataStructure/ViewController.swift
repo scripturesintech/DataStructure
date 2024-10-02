@@ -644,6 +644,68 @@ func fibonacci(_ n: Int) -> Int {
    // let n = 10
     // print("Fibonacci number at position \(n) is \(fibonacci(n))")
 }
+
+ func moveZeros(_ nums: inout [Int]) {
+    var lastNonZeroIndex = 0  // Pointer to track the position of the last non-zero element
+
+    // Iterate through the array
+    for i in 0..<nums.count {
+        if nums[i] != 0 {
+            // Swap the non-zero element with the element at lastNonZeroIndex
+            nums.swapAt(i, lastNonZeroIndex)
+            lastNonZeroIndex += 1  // Move the pointer forward
+        }
+    }
+
+// Example usage:
+//var nums = [0, 1, 0, 3, 12]
+//moveZeros(&nums)
+//print(nums)  // Output: [1, 3, 12, 0, 0]
+}
+func maxSubArray(_ nums: [Int]) -> (maxSum: Int, subArray: [Int]) {
+    var currentSum = nums[0]
+    
+    // Initialize maxSum to the smallest possible value
+    var maxSum = Int.min
+    
+    // Indices to track the start and end of the maximum sum subarray
+    var start = 0
+    var end = 0
+    var tempStart = 0
+    
+    for i in 0..<nums.count {
+        // If adding the current element decreases the current sum, reset to current element
+        if nums[i] > currentSum + nums[i] {
+            currentSum = nums[i]
+            tempStart = i  // Start new subarray
+        } else {
+            currentSum += nums[i]
+        }
+        
+        // If currentSum is greater than maxSum, update maxSum and track indices
+        if currentSum > maxSum {
+            maxSum = currentSum
+            start = tempStart
+            end = i
+        }
+    }
+    
+    // Extract the subarray that has the maximum sum
+    let subArray = Array(nums[start...end])
+    
+    return (maxSum, subArray)
+
+    // Example usage:
+//let nums = [-2, -3, -4, -1, -5]
+//let result = maxSubArray(nums)
+//print("Maximum sum is \(result.maxSum)")  // Output: -1
+//print("Subarray with maximum sum is \(result.subArray)")  // Output: [-1]
+}
+
+
+
+
+
 }
 
 
