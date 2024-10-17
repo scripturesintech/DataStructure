@@ -627,6 +627,26 @@ func compressString(_ string: String) -> String {
     
     return result
 }
+func fibonacciIterative(n: Int) -> Int {
+    var a = 0
+    var b = 1
+
+    for _ in 0..<n {
+        let temp = a + b
+        a = b
+        b = temp
+    }
+
+    return a
+}
+
+func fibonacciRecursive(_ n: Int) -> Int {
+    if n <= 1 {
+        return n
+    } else {
+        return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2)
+    }
+}
 
 func fibonacci(_ n: Int) -> Int {
     if n <= 1 { return n }
